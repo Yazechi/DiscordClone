@@ -1,0 +1,39 @@
+﻿<Window x:Class="DiscordClone.DesktopClient.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiscordClone.DesktopClient"
+        mc:Ignorable="d"
+        Title="Discord Clone" Height="500" Width="400"
+        WindowStartupLocation="CenterScreen"
+        Background="#313338" ResizeMode="NoResize">
+    <Grid Margin="30">
+        <StackPanel VerticalAlignment="Center">
+            <!-- Header -->
+            <TextBlock Text="Welcome back!" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <TextBlock Text="We're so excited to see you again!" Foreground="#949BA4" FontSize="13" HorizontalAlignment="Center" Margin="0,4,0,24"/>
+
+            <!-- Email Input-->
+            <TextBlock Text="EMAIL" Foreground="#B5BAC1" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
+            <TextBox x:Name="EmailTextBox" Height="40" Background="#1E1F22" Foreground="White" BorderThickness="0" Padding="10,0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,0,16"/>
+
+            <!-- Password Input -->
+            <TextBlock Text="PASSWORD" Foreground="#B5BAC1" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
+            <PasswordBox x:Name="PasswordBox" Height="40" Background="#1E1F22" Foreground="White" BorderThickness="0" Padding="10,0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,0,24"/>
+
+            <!-- Error Message Label -->
+            <TextBlock x:Name="ErrorTextBlock" Foreground="#F23F43" FontSize="12" Margin="0,0,0,12" Visibility="Collapsed" TextWrapping="Wrap"/>
+
+            <!-- Login Button -->
+            <Border Height="44" Background="#5865F2" CornerRadius="4">
+                <Button Content="Log In" Foreground="White" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="14" Click="OnLoginClick"/>
+            </Border>
+
+            <!-- Toggle Mode -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0"/>
+            <TextBlock Text="Need an account? " Foreground="#949BA4" FontSize="13"/>
+            <TextBlock Text="Register" Foreground="#00A8FC" FontSize="13" Cursor="Hand" MouseDown="OnRegisterToggleClick"/>
+        </StackPanel>
+    </Grid>
+</Window>

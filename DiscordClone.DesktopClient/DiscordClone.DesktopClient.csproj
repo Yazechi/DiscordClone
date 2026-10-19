@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DiscordClone.Application\DiscordClone.Application.csproj" />
+    <ProjectReference Include="..\DiscordClone.Domain\DiscordClone.Domain.csproj" />
+	<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.0-*" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,30 @@
+﻿<Window x:Class="DiscordClone.DesktopClient.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Discord Clone - Register" Height="550" Width="400"
+        WindowStartupLocation="CenterScreen"
+        Background="#313338" ResizeMode="NoResize">
+    <Grid Margin="30">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="Create an account" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+            <TextBlock Text="EMAIL" Foreground="#B5BAC1" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
+            <TextBox x:Name="EmailTextBox" Height="40" Background="#1E1F22" Foreground="White" BorderThickness="0" Padding="10,0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,0,12"/>
+
+            <TextBlock Text="USERNAME" Foreground="#B5BAC1" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
+            <TextBox x:Name="UsernameTextBox" Height="40" Background="#1E1F22" Foreground="White" BorderThickness="0" Padding="10,0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,0,12"/>
+
+            <TextBlock Text="DISPLAY NAME" Foreground="#B5BAC1" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
+            <TextBox x:Name="DisplayNameTextBox" Height="40" Background="#1E1F22" Foreground="White" BorderThickness="0" Padding="10,0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,0,12"/>
+
+            <TextBlock Text="PASSWORD" Foreground="#B5BAC1" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
+            <PasswordBox x:Name="PasswordBox" Height="40" Background="#1E1F22" Foreground="White" BorderThickness="0" Padding="10,0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,0,20"/>
+
+            <TextBlock x:Name="ErrorTextBlock" Foreground="#F23F43" FontSize="12" Margin="0,0,0,12" Visibility="Collapsed" TextWrapping="Wrap"/>
+
+            <Border Height="44" Background="#5865F2" CornerRadius="4">
+                <Button Content="Continue" Foreground="White" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="14" Click="OnRegisterClick"/>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,38 @@
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[R3]elease/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio cache / temporary files
+.vs/
+.idea/
+.vscode/
+*.cache
+*.DotSettings.user
+
+## NuGet Packages
+*.nupkg
+packages/
+
+## Environment & Local Settings
+appsettings.Development.json
+appsettings.Local.json
+*.env
