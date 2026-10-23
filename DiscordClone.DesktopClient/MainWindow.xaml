@@ -2,65 +2,139 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Discord Clone" Height="720" Width="1280"
-        Background="#313338">
+        Background="#313338" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <!-- Server Icon Button Style -->
+        <Style x:Key="ServerButtonStyle" TargetType="Border">
+            <Setter Property="Background" Value="#313338"/>
+            <Setter Property="CornerRadius" Value="24"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#5865F2"/>
+                    <Setter Property="CornerRadius" Value="16"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Channel Item Hover Style -->
+        <Style x:Key="ChannelItemStyle" TargetType="Border">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Margin" Value="0,1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#35373C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Add Server (+) Button Style -->
+        <Style x:Key="AddServerButtonStyle" TargetType="Border">
+            <Setter Property="Background" Value="#313338"/>
+            <Setter Property="CornerRadius" Value="24"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#23A55A"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="72"/>
-            <!-- Guild Navigation Bar -->
+            <!-- Server Navigation -->
             <ColumnDefinition Width="240"/>
-            <!-- Channels List -->
+            <!-- Channels Navigation -->
             <ColumnDefinition Width="*"/>
-            <!-- Main Chat Area -->
+            <!-- Main Workspace -->
         </Grid.ColumnDefinitions>
 
-        <!-- Guild List Column -->
+        <!-- Left Column: Guild List -->
         <Border Grid.Column="0" Background="#1E1F22">
-            <StackPanel Margin="0,12,0,0">
-                <!-- Rounded Container with Button Inside -->
-                <Border Height="48" Width="48" Margin="0,0,0,8" Background="#5865F2" CornerRadius="24">
-                    <Button Content="Discord" 
-                            Foreground="White" 
-                            Background="Transparent" 
-                            BorderThickness="0"
-                            FontWeight="Bold"/>
-                </Border>
-            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                <StackPanel Margin="0,12,0,12" HorizontalAlignment="Center">
+                    <!-- Home / DM Icon -->
+                    <Border Height="48" Width="48" Margin="0,0,0,8" Style="{StaticResource ServerButtonStyle}" Cursor="Hand">
+                        <TextBlock Text="Discord" Foreground="White" FontSize="11" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+
+                    <Separator Width="32" Background="#35363C" Margin="0,4,0,8"/>
+
+                    <!-- Dynamic Guild Icons -->
+                    <ItemsControl x:Name="GuildsItemsControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,8">
+                                    <Border Height="48" Width="48" Style="{StaticResource ServerButtonStyle}" Cursor="Hand" MouseDown="OnGuildSelected">
+                                        <TextBlock Text="{Binding Name[0]}" Foreground="White" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Add Server (+) Button -->
+                    <Border Height="48" Width="48" Margin="0,4,0,0" Style="{StaticResource AddServerButtonStyle}" MouseDown="OnAddServerClick">
+                        <TextBlock Text="+" Foreground="#23A55A" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
 
-        <!-- Channels Column -->
+        <!-- Middle Column: Channels List -->
         <Border Grid.Column="1" Background="#2B2D31">
-            <StackPanel Margin="16">
-                <TextBlock Text="Server Channels" Foreground="#949BA4" FontWeight="Bold" Margin="0,0,0,12"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                <!-- Clickable General Channel -->
-                <Border x:Name="GeneralChannelBorder" 
-                        Background="#3f4248" 
-                        CornerRadius="4" 
-                        Padding="8,6" 
-                        Margin="0,2" 
-                        Cursor="Hand" 
-                        MouseDown="OnChannelClick">
-                    <TextBlock Text="# general" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
+                <!-- Guild Header -->
+                <Border Grid.Row="0" BorderBrush="#1E1F22" BorderThickness="0,0,0,1" Padding="16,0">
+                    <TextBlock x:Name="ActiveServerNameTextBlock" Text="Select a Server" Foreground="White" FontWeight="Bold" FontSize="15" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
                 </Border>
-            </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="8,12">
+                    <TextBlock Text="TEXT CHANNELS" Foreground="#949BA4" FontSize="11" FontWeight="Bold" Margin="8,0,0,8"/>
+
+                    <!-- Dynamic Channels List -->
+                    <ItemsControl x:Name="ChannelsItemsControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource ChannelItemStyle}" MouseDown="OnChannelSelected">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="#" Foreground="#80848E" FontSize="16" FontWeight="Bold" Margin="0,0,6,0"/>
+                                        <TextBlock Text="{Binding Name}" Foreground="#949BA4" FontSize="14" FontWeight="Medium" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
         </Border>
-        <!-- Main Chat Area -->
+
+        <!-- Right Column: Active Chat Stream -->
         <Grid Grid.Column="2" Background="#313338">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48"/>
-                <!-- Channel Header -->
                 <RowDefinition Height="*"/>
-                <!-- Messages Stream -->
                 <RowDefinition Height="68"/>
-                <!-- Input Box -->
             </Grid.RowDefinitions>
 
             <!-- Channel Header -->
-            <Border Grid.Row="0" Background="#313338" BorderBrush="#1E1F22" BorderThickness="0,0,0,1">
-                <TextBlock Text="# general" Foreground="White" FontWeight="Bold" FontSize="16" VerticalAlignment="Center" Margin="16,0"/>
+            <Border Grid.Row="0" Background="#313338" BorderBrush="#1E1F22" BorderThickness="0,0,0,1" Padding="16,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="#" Foreground="#80848E" FontSize="20" FontWeight="Bold" Margin="0,0,8,0"/>
+                    <TextBlock x:Name="ActiveChannelNameTextBlock" Text="general" Foreground="White" FontWeight="Bold" FontSize="16"/>
+                </StackPanel>
             </Border>
 
-            <!-- Messages Stream -->
+            <!-- Messages List -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="16">
                 <ItemsControl ItemsSource="{Binding Messages}">
                     <ItemsControl.ItemTemplate>
@@ -71,7 +145,7 @@
                 </ItemsControl>
             </ScrollViewer>
 
-            <!-- Message Input Area -->
+            <!-- Text Input Area -->
             <Border Grid.Row="2" Background="#383A40" CornerRadius="8" Margin="16,0,16,16">
                 <Grid>
                     <Grid.ColumnDefinitions>
